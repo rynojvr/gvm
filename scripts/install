@@ -307,9 +307,9 @@ install_from_source() {
 			install_gb || display_warning "Failed to install gb"
 			install_gpkg || display_warning "Failed to install gpkg"
 		fi
-		# if [[ "$INSTALL_PB" == "true" ]]; then
-		# 	install_goprotobuf
-		# fi
+		if [[ "$INSTALL_PB" == "true" ]]; then
+			install_goprotobuf
+		fi
 	fi
 
 	cd "$GO_INSTALL_ROOT" && find . > manifest

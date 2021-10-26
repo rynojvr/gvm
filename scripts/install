@@ -251,6 +251,8 @@ install_goprotobuf() {
   linux: apt-get install protobuf-compiler
   mac:   brew install protobuf
 "
+	create_enviroment
+
 	display_message " * Installing goprotobuf..."
 	if [[ "$GVM_GOINSTALL" == "goinstall" ]]; then
 		$GVM_GOINSTALL goprotobuf.googlecode.com/hg/proto > "$GVM_ROOT/logs/$GO_NAME-pb-compiler.log" 2>&1

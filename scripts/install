@@ -234,7 +234,7 @@ install_go_binary() {
 	download_binary
 	create_enviroment
 
-	if [[ "$INSTALL_PB" == "true" ]]; then
+	:if [[ "$INSTALL_PB" == "true" ]]; then
 		install_goprotobuf
 	fi
 }
@@ -269,7 +269,7 @@ install_goprotobuf() {
 			return 1
 		fi
 	else
-		$GVM_GOINSTALL github.com/golang/protobuf/proto > "$GVM_ROOT/logs/$GO_NAME-pb-compiler.log" 2>&1
+		$GVM_GOINSTALL google.golang.org/protobuf/cmd/proto > "$GVM_ROOT/logs/$GO_NAME-pb-compiler.log" 2>&1
 		if [[ $? -ne 0 ]]; then
 			display_warning "Failed to install goprotobuf. Check the logs at $GVM_ROOT/logs/$GO_NAME-pb-compiler.log"
 			return 1

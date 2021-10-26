@@ -233,6 +233,10 @@ install_go_binary() {
 	create_global_package_set
 	download_binary
 	create_enviroment
+
+	if [[ "$INSTALL_PB" == "true" ]]; then
+		install_goprotobuf
+	fi
 }
 
 install_gpkg() {
@@ -265,12 +269,17 @@ install_goprotobuf() {
 			return 1
 		fi
 	else
-		$GVM_GOINSTALL code.google.com/p/goprotobuf/proto > "$GVM_ROOT/logs/$GO_NAME-pb-compiler.log" 2>&1
+		$GVM_GOINSTALL github.com/golang/protobuf/proto > "$GVM_ROOT/logs/$GO_NAME-pb-compiler.log" 2>&1
 		if [[ $? -ne 0 ]]; then
 			display_warning "Failed to install goprotobuf. Check the logs at $GVM_ROOT/logs/$GO_NAME-pb-compiler.log"
 			return 1
 		fi
-		$GVM_GOINSTALL code.google.com/p/goprotobuf/protoc-gen-go > "$GVM_ROOT/logs/$GO_NAME-pb-compiler.log" 2>&1
+		$GVM_GOINSTALL google.golang.org/protobuf/cmd/protoc-gen-go > "$GVM_ROOT/logs/$GO_NAME-pb-compiler.log" 2>&1
+		if [[ $? -ne 0 ]]; then
+			display_warning "Failed to install goprotobuf compiler. Check the logs at $GVM_ROOT/logs/$GO_NAME-pb-compiler.log"
+			return 1
+		fi
+		$GVM_GOINSTALL google.golang.org/grpc/cmd/protoc-gen-go-grpc > "$GVM_ROOT/logs/$GO_NAME-pb-compiler.log" 2>&1
 		if [[ $? -ne 0 ]]; then
 			display_warning "Failed to install goprotobuf compiler. Check the logs at $GVM_ROOT/logs/$GO_NAME-pb-compiler.log"
 			return 1

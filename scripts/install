@@ -293,7 +293,7 @@ install_from_source() {
 	if [[ "$GO_NAME" == "" ]]; then
 		GO_NAME=$version
 	fi
-	install_go
+	install_go || return -1
 
 	GVM_GOINSTALL="goinstall"
 	command -v goinstall &> /dev/null ||

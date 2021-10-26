@@ -234,7 +234,7 @@ install_go_binary() {
 	download_binary
 	create_enviroment
 
-	:if [[ "$INSTALL_PB" == "true" ]]; then
+	if [[ "$INSTALL_PB" == "true" ]]; then
 		install_goprotobuf
 	fi
 }

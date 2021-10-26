@@ -322,20 +322,20 @@ main() {
 		GO_NAME=$VERSION
 	fi
 
-	install_from_source || {
-		display_message "Falling back to binary installation of $GO_NAME"
-		install_go_binary
-	}
-	# if [[ "x$INSTALL_SOURCE" == "xbinary" ]]; then
+	# install_from_source || {
+	# 	display_message "Falling back to binary installation of $GO_NAME"
 	# 	install_go_binary
-	# elif [[ "x$INSTALL_SOURCE" == "xprefer-binary" ]]; then
-	# 	install_go_binary || {
-	# 		display_message "Falling back to source installation of $GO_NAME"
-	# 		install_from_source
-	# 	}
-	# else
-	# 	install_from_source
-	# fi
+	# }
+	if [[ "x$INSTALL_SOURCE" == "xbinary" ]]; then
+		install_go_binary
+	elif [[ "x$INSTALL_SOURCE" == "xprefer-binary" ]]; then
+		install_go_binary || {
+			display_message "Falling back to source installation of $GO_NAME"
+			install_from_source
+		}
+	else
+		install_from_source
+	fi
 
 
 	if [[ "$INSTALL_PB" == "true" ]]; then

@@ -146,7 +146,7 @@ install_go() {
 	create_global_package_set
 	copy_source
 	compile_go
-	create_enviroment
+	create_enviroment || return -1
 
 	display_message "$GO_NAME successfully installed!"
 }

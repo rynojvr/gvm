@@ -339,11 +339,6 @@ main() {
 		install_from_source
 	fi
 
-
-	if [[ "$INSTALL_PB" == "true" ]]; then
-		install_goprotobuf
-	fi
-
 	cd "$GO_INSTALL_ROOT" && find . > manifest
 }
 

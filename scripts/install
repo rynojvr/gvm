@@ -233,10 +233,6 @@ install_go_binary() {
 	create_global_package_set
 	download_binary
 	create_enviroment
-
-	if [[ "$INSTALL_PB" == "true" ]]; then
-		install_goprotobuf
-	fi
 }
 
 install_gpkg() {
@@ -309,9 +305,9 @@ install_from_source() {
 			install_gb || display_warning "Failed to install gb"
 			install_gpkg || display_warning "Failed to install gpkg"
 		fi
-		if [[ "$INSTALL_PB" == "true" ]]; then
-			install_goprotobuf
-		fi
+		# if [[ "$INSTALL_PB" == "true" ]]; then
+		# 	install_goprotobuf
+		# fi
 	fi
 
 	cd "$GO_INSTALL_ROOT" && find . > manifest
@@ -326,15 +322,24 @@ main() {
 		GO_NAME=$VERSION
 	fi
 
-	if [[ "x$INSTALL_SOURCE" == "xbinary" ]]; then
+	install_from_source || {
+		display_message "Falling back to binary installation of $GO_NAME"
 		install_go_binary
-	elif [[ "x$INSTALL_SOURCE" == "xprefer-binary" ]]; then
-		install_go_binary || {
-			display_message "Falling back to source installation of $GO_NAME"
-			install_from_source
-		}
-	else
-		install_from_source
+	}
+	# if [[ "x$INSTALL_SOURCE" == "xbinary" ]]; then
+	# 	install_go_binary
+	# elif [[ "x$INSTALL_SOURCE" == "xprefer-binary" ]]; then
+	# 	install_go_binary || {
+	# 		display_message "Falling back to source installation of $GO_NAME"
+	# 		install_from_source
+	# 	}
+	# else
+	# 	install_from_source
+	# fi
+
+
+	if [[ "$INSTALL_PB" == "true" ]]; then
+		install_goprotobuf
 	fi
 
 	cd "$GO_INSTALL_ROOT" && find . > manifest

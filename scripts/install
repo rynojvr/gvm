@@ -177,9 +177,9 @@ download_binary() {
 	elif [ "$(uname -m)" == "aarch64" ]; then
       	        GVM_ARCH="arm64"
 	elif [ "$(uname -m)" == "armv7l" ]; then
-		GVM_ARCH="arm"
+		GVM_ARCH="armv6l"
 	elif [ "$(uname -m)" == "armv6l" ]; then
-		GVM_ARCH="arm"
+		GVM_ARCH="armv6l"
 	else
 		GVM_ARCH="386"
 	fi
